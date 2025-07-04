@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
 @Repository
@@ -42,7 +43,8 @@ public class MongoChatRepositoryImpl implements ChatRepository {
         Criteria criteria = Criteria.where("item_id").is(itemId);
 
         if (!"null".equals(search)) {
-            criteria = criteria.and("message").regex(search, "i");
+            String escapedSearch = Pattern.quote(search);
+            criteria = criteria.and("message").regex(escapedSearch, "i");
         }
 
         if (!"null".equals(cursor)) {

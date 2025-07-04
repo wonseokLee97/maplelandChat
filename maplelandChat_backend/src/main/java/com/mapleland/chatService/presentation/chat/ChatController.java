@@ -18,11 +18,12 @@ public class ChatController {
     public ApiResponse<?> getChatListByCursor(
             @RequestParam("itemId") String itemId,
             @RequestParam("limit") int limit,
-            @RequestParam("cursor") String cursor
+            @RequestParam("cursor") String cursor,
+            @RequestParam("search") String search
     ) {
 
         return ApiResponse.success(
-                chatUseCase.getChat(itemId, limit, cursor),
+                chatUseCase.getChat(itemId, limit, cursor, search),
                 HttpSuccessType.SUCCESS_GET_CHAT_LIST
         );
     }
