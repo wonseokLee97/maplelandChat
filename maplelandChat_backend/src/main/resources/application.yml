@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: chatService
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+server:
+  port: 8080
+  forward-headers-strategy: framework
+  servlet:
+    context-path: "/api/v1"
+
+token:
+  token-expiration: 900011
+  token-refresh-expiration: 604800000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus"
