@@ -41,8 +41,8 @@ public class ChatDomainService {
         return chatMapper.toResponseDto(save);
     }
 
-    public List<ChatResponseDto> getChat(String itemId, int limit, String cursor) {
-        List<Chat> chatList = chatRepository.getChatsByCursor(itemId, limit, cursor);
+    public List<ChatResponseDto> getChat(String itemId, int limit, String cursor, String search) {
+        List<Chat> chatList = chatRepository.getChatsByCursor(itemId, limit, cursor, search);
         List<ChatResponseDto> responseDtoList = new ArrayList<>();
 
         for (Chat chat : chatList) {
