@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+      database: chatService
+    redis:
+      url: ${REDIS_URL}
+
+token:
+  secret: ${JWT_SECRET}
+  server-ip: ${SERVER_IP}
+
+logging:
+  level:
+    org.springframework.security: WARN
