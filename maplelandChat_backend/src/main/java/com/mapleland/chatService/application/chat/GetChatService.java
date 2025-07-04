@@ -11,7 +11,7 @@ import java.util.List;
 public class GetChatService {
     private final ChatDomainService chatDomainService;
 
-    public List<ChatResponseDto> execute(String itemId, int limit, String cursor) {
-        return chatDomainService.getChat(itemId, limit, cursor);
+    public List<ChatResponseDto> execute(String itemId, int limit, String cursor, String search) {
+        return chatDomainService.getChat(itemId, limit, cursor, search);
     }
 }

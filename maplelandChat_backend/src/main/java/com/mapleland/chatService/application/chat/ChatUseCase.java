@@ -22,8 +22,8 @@ public class ChatUseCase {
         return createChatService.execute(chatRequestDto, UUID);
     }
 
-    public List<ChatResponseDto> getChat(String itemId, int limit, String cursor) {
-        return getChatService.execute(itemId, limit, cursor);
+    public List<ChatResponseDto> getChat(String itemId, int limit, String cursor, String search) {
+        return getChatService.execute(itemId, limit, cursor, search);
     }
 
     public EntryResponseDto increaseEntry(EntryRequestDto entryRequestDto, String UUID) {
