@@ -1,10 +1,12 @@
 spring:
   data:
     mongodb:
-      uri: ${MONGO_URI}
-      database: chatService
-    redis:
-      url: ${REDIS_URL}
+      host: ${MONGO_HOST}
+      port: ${MONGO_PORT}
+      authentication-database: admin
+      username: ${MONGO_USERNAME}
+      password: ${MONGO_PASSWORD}
+      database: mapleChat
 
 token:
   secret: ${JWT_SECRET}
