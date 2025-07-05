@@ -8,9 +8,14 @@ spring:
       password: ${MONGO_PASSWORD}
       database: mapleChat
 
+server:
+  port: 8081
+
 token:
   secret: ${JWT_SECRET}
   server-ip: ${SERVER_IP}
+  token-expiration: 900011
+  token-refresh-expiration: 604800000
 
 logging:
   level:
