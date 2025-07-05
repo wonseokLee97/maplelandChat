@@ -31,9 +31,9 @@ public enum WsErrorType implements Type {
     SERVER_OVERLOAD(3005, "서버 과부하로 인해 요청 처리 불가"),
 
     INVALID_MESSAGE_SIZE(400, "메시지는 최대 200자까지 입력할 수 있습니다."),
+    ILLEGAL_MESSAGE(400, "적절하지 않은 메시지입니다."),
     INVALID_MESSAGE_NOT_BLANK(400, "메시지를 입력해주세요"),
     TOO_MANY_MESSAGES(429, "너무 많은 메시지를 전송했습니다.");
-
     private final int statusCode;
     private final String message;
 }

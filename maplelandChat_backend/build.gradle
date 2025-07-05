@@ -76,6 +76,9 @@ dependencies {
 
 	// DotEnv
 	implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+
+	// JSoup
+	implementation 'org.jsoup:jsoup:1.16.1'
 }
 
 tasks.named('test') {
