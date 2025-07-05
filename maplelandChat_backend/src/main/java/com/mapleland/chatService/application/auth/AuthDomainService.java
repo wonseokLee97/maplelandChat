@@ -75,8 +75,8 @@ public class AuthDomainService {
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", RefreshToken)
                 .httpOnly(true)
-                .secure(false)
-//                .sameSite("None")
+                .secure(true)
+                .sameSite("None")
                 .path("/api/v1/auth")
                 .maxAge(Duration.ofDays(7))
                 .build();

@@ -21,7 +21,6 @@ public class HashUtil {
             hexString.append(String.format("%02x", b)); // 2자리 16진수로 변환
         }
 
-        System.out.println(hexString.toString());
         return hexString.toString();
     }
 }

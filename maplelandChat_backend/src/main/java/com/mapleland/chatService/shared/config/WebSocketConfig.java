@@ -22,7 +22,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @PostConstruct
     public void logInit() {
-        System.out.println("WebSocketConfig initialized");
     }
 
 
@@ -35,6 +34,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                         "http://127.0.0.1:5500",
                         "http://localhost:5500",
                         "http://localhost:5173",
+                        "https://mapleland.gg",
                         "chrome-extension://*"
                 )
                 .withSockJS() // 웹 소켓을 지원하지 않는 브라우저는 sockJS를 사용
