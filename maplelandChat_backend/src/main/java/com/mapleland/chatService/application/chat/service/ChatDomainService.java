@@ -1,5 +1,9 @@
-package com.mapleland.chatService.application.chat;
+package com.mapleland.chatService.application.chat.service;
 
+import com.mapleland.chatService.application.chat.helper.ChatEntryHelper;
+import com.mapleland.chatService.application.chat.helper.ChatMapper;
+import com.mapleland.chatService.application.chat.helper.ChatPolicyHelper;
+import com.mapleland.chatService.application.chat.helper.XssSanitizerHelper;
 import com.mapleland.chatService.domain.chat.Chat;
 import com.mapleland.chatService.infrastructure.chat.ChatRepository;
 import com.mapleland.chatService.presentation.chat.dto.ChatResponseDto;
@@ -23,6 +27,7 @@ public class ChatDomainService {
     private final ChatPolicyHelper spamPolicy;
     private final ChatEntryHelper entryHelper;
     private final BadWordFilter badWordFilter;
+    private final XssSanitizerHelper xssSanitizerHelper;
 
     public ChatResponseDto createChat(ChatRequestDto requestDto, String UUID) {
         // 도배 방지
@@ -33,6 +38,7 @@ public class ChatDomainService {
 
         String message = requestDto.getMessage();
         message = badWordFilter.filter(message);
+        message = xssSanitizerHelper.sanitize(message);
         requestDto.setMessage(message);
 
         Chat chat = chatMapper.toEntity(requestDto);

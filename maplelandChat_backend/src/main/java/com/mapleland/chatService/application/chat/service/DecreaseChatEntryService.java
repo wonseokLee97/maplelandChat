@@ -1,4 +1,4 @@
-package com.mapleland.chatService.application.chat;
+package com.mapleland.chatService.application.chat.service;
 
 import com.mapleland.chatService.presentation.websocket.dto.EntryResponseDto;
 import lombok.RequiredArgsConstructor;

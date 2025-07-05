@@ -42,4 +42,10 @@ public class WebSocketExceptionHandler {
     protected ApiResponse<?> handleChatBlockedException(ChatException.ChatBlockedException e) {
         return ApiResponse.error(e.getMessage(), TOO_MANY_MESSAGES);
     }
+
+    @MessageExceptionHandler(IllegalArgumentException.class)
+    @SendToUser(destinations = "/queue/errors", broadcast = false)  // 해당 Session 의 User 에게만 예외 메시지 전송
+    protected ApiResponse<?> handleIllegalArgumentException(IllegalArgumentException e) {
+        return ApiResponse.error(e.getMessage(), ILLEGAL_MESSAGE);
+    }
 }

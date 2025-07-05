@@ -1,4 +1,4 @@
-package com.mapleland.chatService.application.chat;
+package com.mapleland.chatService.application.chat.helper;
 
 import com.mapleland.chatService.application.redis.RedisService;
 import com.mapleland.chatService.domain.chat.exception.ChatException;
