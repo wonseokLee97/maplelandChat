@@ -1,6 +1,8 @@
 package com.mapleland.chatService.presentation.websocket;
 
+import com.mapleland.chatService.application.alert.AlertUseCase;
 import com.mapleland.chatService.application.chat.ChatUseCase;
+import com.mapleland.chatService.presentation.websocket.dto.AlertRequestDto;
 import com.mapleland.chatService.presentation.websocket.dto.ChatRequestDto;
 import com.mapleland.chatService.presentation.websocket.dto.EntryRequestDto;
 import jakarta.validation.Valid;
@@ -18,6 +20,7 @@ import java.util.Objects;
 public class WebSocketController {
 
     private final ChatUseCase chatUseCase;
+    private final AlertUseCase alertUseCase;
     private final SimpMessagingTemplate messagingTemplate;
 
     @MessageMapping("/chat")
@@ -36,5 +39,11 @@ public class WebSocketController {
 
         messagingTemplate.convertAndSend("/sub/entry/" + requestDto.getItemId(),
                 chatUseCase.increaseEntry(requestDto, UUID));
+    }
+
+    @MessageMapping("/alert")
+    public void createAlert(AlertRequestDto requestDto) {
+        messagingTemplate.convertAndSend("/sub/alert/" + requestDto.getTargetUuid(),
+                alertUseCase.createAlert(requestDto));
     }
 }
