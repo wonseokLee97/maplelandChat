@@ -8,6 +8,9 @@ import com.mapleland.chatService.presentation.websocket.dto.AlertResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class AlertDomainService {
@@ -20,5 +23,15 @@ public class AlertDomainService {
         Alert save = alertRepository.save(alert);
 
         return alertMapper.toResponseDto(save);
+    }
+
+    public List<AlertResponseDto> getAlerts(String uuid) {
+        return alertRepository.getAlerts(uuid).stream()
+                .map(alertMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    public Boolean patchAlertAsChecked(String alertId) {
+        return alertRepository.patchAlertAsChecked(alertId);
     }
 }
