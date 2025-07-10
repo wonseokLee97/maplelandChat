@@ -15,6 +15,9 @@ public enum HttpSuccessType implements Type {
     SUCCESS_TOKEN_ISSUANCE(200, "토큰 발급 성공"),
     SUCCESS_TOKEN_REFRESH(200, "토큰 재발급 성공"),
 
+    // ============= [ALERT / 200: 요청 성공] =============
+    SUCCESS_GET_ALERT_LIST(200, "알람 목록 조회 성공"),
+
     // ============= [CHAT / 200: 요청 성공] =============
     SUCCESS_GET_CHAT_LIST(200, "채팅 목록 조회 성공"),
     SUCCESS_REPORT_CHAT(200, "채팅 신고 성공"),
