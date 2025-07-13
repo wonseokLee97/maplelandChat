@@ -47,7 +47,7 @@ public class JwtProvider {
 
         String ipAddress = IpAddressUtil.extractIpAddress(request);
         String userAgent = request.getHeader("User-Agent");
-        String UUID = Base64.getUrlEncoder().withoutPadding().encodeToString((userAgent + ipAddress).getBytes());
+        String UUID = Base64.getUrlEncoder().withoutPadding().encodeToString((ipAddress + userAgent).getBytes());
 
         // UUID = userName + IpAddress + ..
 

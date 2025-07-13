@@ -52,10 +52,10 @@ public class AuthDomainService {
 
         // "rename:block"이 Redis 에 등록되어 있으면 닉네임 변경 X
         if (redisService.get(blockKey) != null)
-            throw new AuthException.RenameRateLimitException("닉네임은 10분마다 변경할 수 있습니다.");
+            throw new AuthException.RenameRateLimitException("닉네임은 24시간 마다 변경할 수 있습니다.");
 
         // "rename:block" Duration 설정
-        redisService.set(blockKey, "1", Duration.ofMinutes(10));
+        redisService.set(blockKey, "1", Duration.ofHours(24));
 
         String imgPath = claims.getImgPath();
         String rename = requestDto.getUserName();
@@ -75,8 +75,8 @@ public class AuthDomainService {
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", RefreshToken)
                 .httpOnly(true)
-                .secure(false)
-//                .sameSite("None")
+                .secure(true)
+                .sameSite("None")
                 .path("/api/v1/auth")
                 .maxAge(Duration.ofDays(7))
                 .build();
