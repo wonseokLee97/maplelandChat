@@ -84,3 +84,17 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.compileTestJava {
+	doFirst {
+		delete destinationDir
+	}
+}
+
+sourceSets {
+	test {
+		java {
+			srcDirs = ['src/test/java']
+		}
+	}
+}

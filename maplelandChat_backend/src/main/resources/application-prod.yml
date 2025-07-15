@@ -21,4 +21,9 @@ token:
 
 logging:
   level:
+    root: INFO
+    com.mapleland.chatService: DEBUG
     org.springframework.security: WARN
+    org.springframework.web.socket.config.WebSocketMessageBrokerStats: WARN
+  file:
+    name: ${LOG_PATH_PROD}

@@ -17,4 +17,7 @@ token:
 
 logging:
   level:
-    org.springframework.security: DEBUG
+    org.springframework.security: INFO
+
+  file:
+    name: ${LOG_PATH_DEV}
