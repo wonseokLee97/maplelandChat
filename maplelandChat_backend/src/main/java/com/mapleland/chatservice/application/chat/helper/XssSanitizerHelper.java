@@ -1,44 +1,53 @@
 package com.mapleland.chatservice.application.chat.helper;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Entities;
+import org.jsoup.parser.Parser;
 import org.jsoup.safety.Safelist;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Component
+@Slf4j
 public class XssSanitizerHelper {
 
-    public String sanitize(String input) {
-        // 1. < > 마킹
-        String markedInput = input
-                .replace("<", "__LT__")
-                .replace(">", "__GT__");
+    private static final Pattern TAG_PATTERN = Pattern.compile("<\\s*/?\\s*([a-zA-Z]+)[^>]*>");
+    private static final Set<String> ALLOWED_TAGS = Set.of("img", "video", "source", "figcaption", "figure");
+    private final Safelist safelist;
 
-        // 2. Jsoup 설정
-        Safelist safelist = Safelist.none();
-        safelist
+    public XssSanitizerHelper() {
+        this.safelist = Safelist.none()
                 .addTags("img", "video", "source", "figcaption", "figure")
                 .addAttributes("img", "src", "alt", "width", "height")
                 .addAttributes("video", "src", "controls", "width", "height");
+    }
 
+    public String sanitize(String input) {
         Document.OutputSettings outputSettings = new Document.OutputSettings()
                 .prettyPrint(false)
-                .escapeMode(Entities.EscapeMode.xhtml);
+                .escapeMode(Entities.EscapeMode.base);
 
-        // 3. sanitize (마킹된 input 사용)
-        String sanitized = Jsoup.clean(markedInput, "", safelist, outputSettings);
+        Matcher matcher = TAG_PATTERN.matcher(input);
 
-        // 4. 마킹 복원
-        sanitized = sanitized.replace("__LT__", "<").replace("__GT__", ">");
+        while (matcher.find()) {
+            String tagName = matcher.group(1).toLowerCase();
+            if (!ALLOWED_TAGS.contains(tagName)) {
+                throw new IllegalArgumentException("적절하지 않은 메시지입니다.");
+            }
+        }
 
-        // 5. input과 비교 (비교도 마킹 후 비교)
-        String originalMarked = input.replace("<", "__LT__").replace(">", "__GT__");
+        String cleaned = Jsoup.clean(input, "", safelist, outputSettings);
+        String unescapedCleaned = Parser.unescapeEntities(cleaned, false);
 
-        if (!sanitized.equals(originalMarked)) {
+        if (!unescapedCleaned.equals(input)) {
             throw new IllegalArgumentException("적절하지 않은 메시지입니다.");
         }
 
-        return sanitized;
+        return input;
     }
 }
