@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 /**
  * ChatController Layer 에서 발생한 예외만 Catch
  */
-@RestControllerAdvice(basePackages = "com.mapleland.chatService.presentation.chat")
+@RestControllerAdvice(basePackages = "com.mapleland.chatservice.presentation.chat")
 public class ChatExceptionHandler {
 
     @ExceptionHandler(ChatException.AlreadyReportedUserException.class)

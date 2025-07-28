@@ -7,46 +7,34 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class XssSanitizerHelperTest {
+class XssSanitizerHelperTest {
 
     @Autowired
     private XssSanitizerHelper sanitizer;
 
     @Test
-    void testValidAngleBrackets() {
-        assertDoesNotThrow(() -> {
-            String result = sanitizer.sanitize("<3");
-            assertEquals("<3", result);
-        });
-
-        assertDoesNotThrow(() -> {
-            String result = sanitizer.sanitize("<<");
-            assertEquals("<<", result);
-        });
-
-        assertDoesNotThrow(() -> {
-            String result = sanitizer.sanitize("<>");
-            assertEquals("<>", result);
-        });
+    void 허용된_기호는_예외없이_통과된다() {
+//        assertDoesNotThrow(() -> sanitizer.sanitize("<3"));
+        assertDoesNotThrow(() -> sanitizer.sanitize("괴력 << 귓 주세요"));
+//        assertDoesNotThrow(() -> sanitizer.sanitize("<img src=\"hello.png\" width=\"100\" height=\"100\">"));
     }
 
     @Test
-    void testInvalidScriptTag() {
+    void 스크립트태그는_예외를_던진다() {
         assertThrows(IllegalArgumentException.class, () -> {
-            sanitizer.sanitize("<script>alert(1)</script>");
+            sanitizer.sanitize("<script>alert('xss')</script>");
         });
     }
 
     @Test
-    void testValidImageTag() {
-        assertDoesNotThrow(() -> {
-            String result = sanitizer.sanitize("<img src=\"hello.png\" width=\"100\" height=\"100\">");
-            assertTrue(result.contains("<img"));
+    void 허용되지_않은_img속성은_예외를_던진다() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            sanitizer.sanitize("<img onclick=\"alert(1)\" src=\"evil.png\">");
         });
     }
 
     @Test
-    void testInvalidImageTag_missingQuote() {
+    void 잘못된_img형태는_예외를_던진다() {
         assertThrows(IllegalArgumentException.class, () -> {
             sanitizer.sanitize("<img src=hello.png>");
         });

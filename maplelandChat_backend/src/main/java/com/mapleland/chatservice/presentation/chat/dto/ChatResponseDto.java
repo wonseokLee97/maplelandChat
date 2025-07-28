@@ -17,6 +17,7 @@ public class ChatResponseDto {
     private String userName;
     private String message;
     private String imgPath;
+    private String replyUserName;
     private String uuid;
     private LocalDateTime createdAt;
 }

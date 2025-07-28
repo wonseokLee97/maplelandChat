@@ -47,16 +47,20 @@ public class Chat {
     @Field("del")
     private int del;
 
+    @Field("reply_user_name")
+    private String replyUserName;
+
     @Field("ban")
     private boolean ban;
 
     @Builder
-    private Chat(String itemId, String userName, String message, String imgPath, String uuid) {
+    private Chat(String itemId, String userName, String message, String imgPath, String uuid, String replyUserName) {
         this.itemId = itemId;
         this.userName = userName;
         this.message = message;
         this.imgPath = imgPath;
         this.uuid = uuid;
+        this.replyUserName = replyUserName;
         this.createdAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
     }
 }

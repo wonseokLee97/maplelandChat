@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 /**
  * AuthController Layer 에서 발생한 예외만 Catch
  */
-@RestControllerAdvice(basePackages = "com.mapleland.chatService.presentation.auth")
+@RestControllerAdvice(basePackages = "com.mapleland.chatservice.presentation.auth")
 public class AuthExceptionHandler {
 
     @ExceptionHandler(AuthException.UnknownHostException.class)

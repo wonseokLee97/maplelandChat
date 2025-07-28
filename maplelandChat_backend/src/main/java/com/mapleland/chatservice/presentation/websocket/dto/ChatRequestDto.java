@@ -18,4 +18,5 @@ public class ChatRequestDto {
     @Setter
     private String uuid;
     private String imgPath;
+    private String replyUserName;
 }
