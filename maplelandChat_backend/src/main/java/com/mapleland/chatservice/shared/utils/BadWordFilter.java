@@ -22,8 +22,8 @@ public class BadWordFilter {
         InputStream is = getClass().getClassLoader().getResourceAsStream("curse.json");
 
         Map<String, List<String>> rawMap = mapper.readValue(is, new TypeReference<>() {});
-        Trie.TrieBuilder builder = Trie.builder(); // ← 여기서 onlyWholeWords() 빼세요!
-
+        Trie.TrieBuilder builder = Trie.builder(); 
+        
         // Trie 및 역매핑 구성
         for (Map.Entry<String, List<String>> entry : rawMap.entrySet()) {
             String replacement = entry.getKey();
